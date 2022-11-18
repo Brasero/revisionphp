@@ -1,0 +1,21 @@
+.container {
+    padding: 0;
+}
+
+.content {
+    padding: 0 15px;
+}
+
+.dataTable {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 5px 7px;
+}
+
+.tableRow:nth-child(odd) {
+    background: rgb(194, 194, 194);
+}
