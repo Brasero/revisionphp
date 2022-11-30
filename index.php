@@ -14,26 +14,18 @@
     <main class="container">
         <?php
 
-            $data = [
-                [
-                    "titre" => "20000 lieu sous les mers",
-                    "parution" => "Mai 1985",
-                    "auteur" => "Jean Valjean",
-                    "coEcrit" => "non"
-                ],
-                [
-                    "titre" => "Nautilus",
-                    "parution" => "Avril 1978",
-                    "auteur" => "Montesquieu",
-                    "coEcrit" => "non"
-                ],
-                [
-                    "titre" => "Les 100 dalmatiens",
-                    "parution" => "Avril 1990",
-                    "auteur" => "Test",
-                    "coEcrit" => "oui"
-                ]
-            ];
+            require "./database/database.php";
+
+            $str = "SELECT * FROM livres 
+                    INNER JOIN kiosque
+                    ON
+                    livres.kiosque_id = kiosque.id";
+
+            $query = $bdd->query($str);
+
+            $data = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            var_dump($data);
 
             include "./navBar/navBar.php";
 
@@ -45,21 +37,33 @@
                     <tr class="thead">
                         <td class="entete">Titre</td>
                         <td class="entete">Date de parution</td>
-                        <td class="entete">Auteur</td>
+                        <td class="entete">Kiosque</td>
                         <td class="entete">Co-écrit</td>
                     </tr>
                 </thead>
 
                 <tbody>
                     <?php
+
+
+
+
+
+
+
+
+
+
+
+
                         $i = 1;
                         foreach($data as $array) {
-                            echo '<tr class="tableRow">';
-                            foreach($array as $info) {
-                                echo '<td class="tableCell">'.$info.'</td>';
-                            }
-                            echo '</tr>';
-                            $i++;
+                            echo '<tr class="tableRow">
+                            <td class="tableCell">'.$array['titre'].'</td>
+                            <td class="tableCell">'.$array['date_parution'].'</td>
+                            <td class="tableCell">'.$array['nom'].'</td>
+                            </tr>';
+                             $i++;
                         }
                     ?>
                 </tbody>
