@@ -13,10 +13,21 @@
 
     <main class="container">
         <?php
+            include "./navBar/navBar.php";
 
             require "./database/database.php";
 
-            $str = "SELECT * FROM livres 
+            if (isset($_GET['success'])) {
+                if ($_GET['success'] == 'true') {
+                    echo "<span>Livre supprimé</span>";
+                } else {
+                    echo "<span>Une erreur s'est produite</span>";
+                }
+            } elseif (isset($_GET['message'])) {
+                echo "<span>$_GET[message]</span>";
+            }
+
+            $str = "SELECT *, livres.id AS livres_id FROM livres 
                     INNER JOIN kiosque
                     ON
                     livres.kiosque_id = kiosque.id";
@@ -25,9 +36,6 @@
 
             $data = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            var_dump($data);
-
-            include "./navBar/navBar.php";
 
         ?>
 
@@ -38,7 +46,7 @@
                         <td class="entete">Titre</td>
                         <td class="entete">Date de parution</td>
                         <td class="entete">Kiosque</td>
-                        <td class="entete">Co-écrit</td>
+                        <td class="entete">Actions</td>
                     </tr>
                 </thead>
 
@@ -62,6 +70,10 @@
                             <td class="tableCell">'.$array['titre'].'</td>
                             <td class="tableCell">'.$array['date_parution'].'</td>
                             <td class="tableCell">'.$array['nom'].'</td>
+                            <td class="tableCell btn-group">
+                                <a href="update.php?id='.$array['livres_id'].'" class="updateButton btn">Modifier</a>
+                                <a href="delete.php?id='.$array['livres_id'].'" class="deleteButton btn">Supprimer</a>
+                            </td>
                             </tr>';
                              $i++;
                         }
